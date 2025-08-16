@@ -1,0 +1,7 @@
+expo-env.d.ts
+
+mobile/node_modules/
+
+
+backend/node_modules/
+backend/.env
