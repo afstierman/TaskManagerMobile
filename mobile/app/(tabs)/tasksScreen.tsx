@@ -63,7 +63,7 @@ export default function TasksScreen() {
       setLoading(true);
       setError(null);
       try {
-        const res = await fetch('http://10.143.4.4:5000/api/tasks', {
+  const res = await fetch('https://taskmanagermobile.onrender.com/api/tasks', {
           headers: {
             Authorization: `Bearer ${userToken}`,
           },
@@ -110,7 +110,7 @@ export default function TasksScreen() {
           onPress: async () => {
             setLoading(true);
             try {
-              await fetch(`http://10.143.4.4:5000/api/tasks/${taskId}`, {
+              await fetch(`https://taskmanagermobile.onrender.com/api/tasks/${taskId}`, {
                 method: 'DELETE',
                 headers: { Authorization: `Bearer ${userToken}` },
               });

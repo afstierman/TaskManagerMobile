@@ -30,7 +30,7 @@ export default function RegisterScreen() {
     setLoading(true);
     try {
       // 1. Register the account
-      const res = await fetch('http://10.143.4.4:5000/api/auth/register', {
+  const res = await fetch('https://taskmanagermobile.onrender.com/api/auth/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password }),
@@ -42,7 +42,7 @@ export default function RegisterScreen() {
       }
 
       // 2. Immediately log in
-      const loginRes = await fetch('http://10.143.4.4:5000/api/auth/login', {
+  const loginRes = await fetch('https://taskmanagermobile.onrender.com/api/auth/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password }),

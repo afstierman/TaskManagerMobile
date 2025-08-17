@@ -72,7 +72,7 @@ export default function TasksPopup({ task, userToken, onSave, onCancel, onDelete
         return;
       }
       // Send updated task to backend
-      const res = await fetch(`http://10.143.4.4:5000/api/tasks/${task._id}`, {
+  const res = await fetch(`https://taskmanagermobile.onrender.com/api/tasks/${task._id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

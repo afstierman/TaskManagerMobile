@@ -1,4 +1,4 @@
-const API_BASE_URL = 'http://10.143.4.4:5000/api';
+const API_BASE_URL = 'https://taskmanagermobile.onrender.com/api';
 
 export interface User {
   id: string;
