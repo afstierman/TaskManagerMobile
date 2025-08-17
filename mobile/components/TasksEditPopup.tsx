@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { scheduleTaskNotifications } from '../utils/notificationUtils';
 import { ScrollView, TextInput, View, Button, TouchableOpacity } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
@@ -90,6 +91,12 @@ export default function TasksPopup({ task, userToken, onSave, onCancel, onDelete
         const errData = await res.json().catch(() => ({}));
         throw new Error(errData.message || 'Failed to update task');
       }
+      // Schedule notifications after editing
+      await scheduleTaskNotifications({
+        _id: task._id,
+        title,
+        notifications: notifications.map(n => ({ time: n.time })),
+      });
       onSave(); // Parent should re-fetch task and close popup
     } catch (e: any) {
       setError(e.message || 'Failed to save');

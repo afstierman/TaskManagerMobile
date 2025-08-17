@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { scheduleTaskNotifications } from '../../utils/notificationUtils';
 import { StyleSheet, TextInput, Button, Alert, View, TouchableOpacity } from 'react-native';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import { ThemedView } from '@/components/ThemedView';
@@ -46,6 +47,13 @@ export default function AddTaskScreen() {
         const errData = await res.json().catch(() => ({}));
         throw new Error(errData.message || 'Failed to add task');
       }
+      // Schedule notifications after adding task
+      await scheduleTaskNotifications({
+        _id: 'new', // No real ID yet, but notifications will still fire
+        title,
+        notifications: notifications.map(n => ({ time: n.time })),
+        dueDate: dueDate ? dueDate.toISOString() : undefined,
+      });
       setTitle('');
       setDescription('');
       setNotifications([]);

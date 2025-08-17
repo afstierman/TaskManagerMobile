@@ -21,6 +21,8 @@ import { ThemedText } from '@/components/ThemedText';
 import { useTasksRefresh } from '@/context/TasksRefreshContext';
 import TasksPopup from '@/components/TasksEditPopup';
 
+import { useNavigation } from '@react-navigation/native';
+
 interface Task {
   _id: string;
   title: string;
@@ -46,7 +48,7 @@ function getTaskBgColor({ status, dueDate }: { status: string; dueDate?: string 
 }
 
 export default function TasksScreen() {
-  const { userToken } = useAuth();
+  const { userToken, logout } = useAuth();
   const { theme } = useTheme();
   const colors = Colors[theme];
   const { refreshKey, triggerRefresh } = useTasksRefresh();
@@ -57,13 +59,16 @@ export default function TasksScreen() {
   const [editingTask, setEditingTask] = useState<Task | null>(null);
 
   useEffect(() => {
-    if (!userToken) return;
+    if (!userToken) {
+      logout();
+      return;
+    }
 
     const fetchTasks = async () => {
       setLoading(true);
       setError(null);
       try {
-  const res = await fetch('https://taskmanagermobile.onrender.com/api/tasks', {
+        const res = await fetch('https://taskmanagermobile.onrender.com/api/tasks', {
           headers: {
             Authorization: `Bearer ${userToken}`,
           },
